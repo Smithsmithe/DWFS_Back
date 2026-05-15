@@ -26,6 +26,7 @@ public class BookImage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "description_id")
-    @JsonBackReference
+
+    @JsonBackReference("images-reference")
     private BookDescription description;
 }

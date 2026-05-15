@@ -10,11 +10,10 @@ spring:
 
   jpa:
     show-sql: true
+    open-in-view: false
 
     hibernate:
       ddl-auto: validate
-
-    database-platform: org.hibernate.dialect.MySQLDialect
 
     properties:
       hibernate:
@@ -37,3 +36,8 @@ eureka:
   instance:
     prefer-ip-address: true
     hostname: unir-book-catalogue
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method

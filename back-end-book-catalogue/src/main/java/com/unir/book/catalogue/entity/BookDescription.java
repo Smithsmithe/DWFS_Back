@@ -46,7 +46,7 @@ public class BookDescription {
 
     private Integer pages;
 
-    private BigDecimal rating;;
+    private BigDecimal rating;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -60,7 +60,7 @@ public class BookDescription {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    @JsonManagedReference
+    @JsonManagedReference("books-reference")
     private List<Book> books;
 
     @OneToMany(
@@ -69,6 +69,6 @@ public class BookDescription {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    @JsonManagedReference
+    @JsonManagedReference("images-reference")
     private List<BookImage> images;
 }

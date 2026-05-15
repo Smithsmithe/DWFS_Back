@@ -1,6 +1,6 @@
 package com.unir.book.catalogue.utils;
 
-import com.unir.book.catalogue.dto.BookResponse;
+import com.unir.book.catalogue.controller.model.BookResponse;
 import com.unir.book.catalogue.entity.BookDescription;
 
 public class BookMapper {
