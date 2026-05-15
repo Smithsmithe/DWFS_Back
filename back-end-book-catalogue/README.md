@@ -235,33 +235,6 @@ Archivo:
 src/main/resources/application.yml
 ```
 
-Ejemplo:
-
-```yaml
-spring:
-  application:
-    name: catalogue
-
-  datasource:
-    url: jdbc:mysql://localhost:3308/book_catalogue_db
-    username: root
-    password: mysql
-
-  jpa:
-    show-sql: true
-    open-in-view: false
-
-    hibernate:
-      ddl-auto: validate
-
-server:
-  port: 8081
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
-```
 
 ---
 

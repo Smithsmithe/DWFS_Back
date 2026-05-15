@@ -170,12 +170,13 @@ public class BookServiceImpl implements BookService {
     }
 
     /**
-     * Actualiza parcialmente atributos editables del libro.
+     * Actualiza parcialmente un libro existente.
      */
     @Override
     public BookResponse patchBook(Long id, PatchBookRequest request) {
 
         Book book = findBookOrThrow(id);
+        BookDescription description = book.getDescription();
 
         if (request.getPrice() != null) {
             book.setPrice(request.getPrice());
@@ -190,9 +191,10 @@ public class BookServiceImpl implements BookService {
         }
 
         if (request.getRating() != null) {
-            book.getDescription().setRating(request.getRating());
+            description.setRating(request.getRating());
         }
 
+        bookDescriptionJpaRepository.save(description);
         Book updatedBook = bookJpaRepository.save(book);
 
         return mapToResponse(reloadBook(updatedBook.getId()));
