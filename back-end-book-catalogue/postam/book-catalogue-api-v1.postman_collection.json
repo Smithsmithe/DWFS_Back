@@ -133,7 +133,7 @@
       "name": "DELETE - Book",
       "request": {
         "method": "DELETE",
-        "url": "{{baseUrl}}/20"
+        "url": "{{baseUrl}}/101"
       }
     },
     {
