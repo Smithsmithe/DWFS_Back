@@ -1,8 +1,8 @@
 {
   "info": {
     "name": "Book Catalogue API",
-    "_postman_id": "book-catalogue-api-v1",
-    "description": "Colección de pruebas para el microservicio book catalogue",
+    "_postman_id": "book-catalogue-api-v2",
+    "description": "Colección de pruebas funcionales para el microservicio Book Catalogue",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -16,7 +16,6 @@
       "name": "GET - All Books",
       "request": {
         "method": "GET",
-        "header": [],
         "url": "{{baseUrl}}"
       }
     },
@@ -24,72 +23,42 @@
       "name": "GET - Book By ID",
       "request": {
         "method": "GET",
-        "header": [],
-        "url": "{{baseUrl}}/1"
+        "url": "{{baseUrl}}/15"
       }
     },
     {
       "name": "GET - Search By Author",
       "request": {
         "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}?author=rowling",
-          "host": ["{{baseUrl}}"],
-          "query": [
-            {
-              "key": "author",
-              "value": "Emily"
-            }
-          ]
-        }
+        "url": "{{baseUrl}}/search?author=Emily"
+      }
+    },
+    {
+      "name": "GET - Search By Category",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/search?category=Fantasy"
       }
     },
     {
       "name": "GET - Search Combined",
       "request": {
         "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}?category=fantasy&visible=true&rating=4.0",
-          "host": ["{{baseUrl}}"],
-          "query": [
-            {
-              "key": "category",
-              "value": "fantasy"
-            },
-            {
-              "key": "visible",
-              "value": "true"
-            },
-            {
-              "key": "rating",
-              "value": "4.0"
-            }
-          ]
-        }
+        "url": "{{baseUrl}}/search?category=Technology&visible=true&rating=4.5"
+      }
+    },
+    {
+      "name": "GET - Search By Price",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/search?maxPrice=50"
       }
     },
     {
       "name": "GET - Pagination",
       "request": {
         "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/paged?page=0&size=10",
-          "host": ["{{baseUrl}}"],
-          "path": ["paged"],
-          "query": [
-            {
-              "key": "page",
-              "value": "0"
-            },
-            {
-              "key": "size",
-              "value": "10"
-            }
-          ]
-        }
+        "url": "{{baseUrl}}/paged?page=0&size=10"
       }
     },
     {
@@ -104,7 +73,24 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"Clean Code\",\n  \"author\": \"Robert C. Martin\",\n  \"shortDescription\": \"Software engineering best practices\",\n  \"fullDescription\": \"A handbook of agile software craftsmanship.\",\n  \"isbn\": \"9780132350884\",\n  \"category\": \"Software\",\n  \"publicationDate\": \"2008-08-01\",\n  \"language\": \"English\",\n  \"editorial\": \"Prentice Hall\",\n  \"pages\": 464,\n  \"rating\": 4.8,\n  \"format\": \"Paperback\",\n  \"price\": 59.99,\n  \"stock\": 10,\n  \"visible\": true,\n  \"imageUrls\": [\n    \"https://example.com/clean-code-1.jpg\",\n    \"https://example.com/clean-code-2.jpg\"\n  ]\n}"
+          "raw": "{\n  \"title\": \"Clean Architecture\",\n  \"author\": \"Robert C. Martin\",\n  \"shortDescription\": \"Software architecture principles and design practices.\",\n  \"fullDescription\": \"A practical guide to building maintainable and scalable software systems using clean architecture principles.\",\n  \"isbn\": \"9780134494166\",\n  \"category\": \"Technology\",\n  \"publicationDate\": \"2017-09-20\",\n  \"language\": \"English\",\n  \"editorial\": \"Pearson\",\n  \"pages\": 432,\n  \"rating\": 4.8,\n  \"format\": \"Paperback\",\n  \"price\": 59.99,\n  \"stock\": 15,\n  \"visible\": true,\n  \"imageUrls\": [\n    \"https://images.books.dev/clean-architecture-main.jpg\",\n    \"https://images.books.dev/clean-architecture-back.jpg\"\n  ]\n}"
+        },
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "POST - Duplicate ISBN",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Duplicate ISBN Test\",\n  \"author\": \"Test Author\",\n  \"shortDescription\": \"Validation test for duplicate ISBN.\",\n  \"fullDescription\": \"This request validates duplicate ISBN handling in the API.\",\n  \"isbn\": \"9780134494166\",\n  \"category\": \"Technology\",\n  \"publicationDate\": \"2024-01-01\",\n  \"language\": \"English\",\n  \"editorial\": \"Pearson\",\n  \"pages\": 300,\n  \"rating\": 4.0,\n  \"format\": \"Digital\",\n  \"price\": 29.99,\n  \"stock\": 5,\n  \"visible\": true,\n  \"imageUrls\": [\n    \"https://images.books.dev/test-duplicate.jpg\"\n  ]\n}"
         },
         "url": "{{baseUrl}}"
       }
@@ -121,9 +107,9 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"Clean Code Updated\",\n  \"author\": \"Robert C. Martin\",\n  \"shortDescription\": \"Updated description\",\n  \"fullDescription\": \"Updated full description.\",\n  \"isbn\": \"9780132350884\",\n  \"category\": \"Software\",\n  \"publicationDate\": \"2008-08-01\",\n  \"language\": \"English\",\n  \"editorial\": \"Prentice Hall\",\n  \"pages\": 464,\n  \"rating\": 4.9,\n  \"format\": \"Hardcover\",\n  \"price\": 69.99,\n  \"stock\": 15,\n  \"visible\": true,\n  \"imageUrls\": [\n    \"https://example.com/updated-1.jpg\"\n  ]\n}"
+          "raw": "{\n  \"title\": \"Clean Architecture Updated\",\n  \"author\": \"Robert C. Martin\",\n  \"shortDescription\": \"Updated software architecture reference.\",\n  \"fullDescription\": \"Updated complete software architecture content.\",\n  \"isbn\": \"9780134494166\",\n  \"category\": \"Technology\",\n  \"publicationDate\": \"2017-09-20\",\n  \"language\": \"English\",\n  \"editorial\": \"Pearson\",\n  \"pages\": 450,\n  \"rating\": 4.9,\n  \"format\": \"Hardcover\",\n  \"price\": 69.99,\n  \"stock\": 20,\n  \"visible\": true,\n  \"imageUrls\": [\n    \"https://images.books.dev/clean-architecture-new.jpg\"\n  ]\n}"
         },
-        "url": "{{baseUrl}}/1"
+        "url": "{{baseUrl}}/15"
       }
     },
     {
@@ -138,24 +124,29 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"price\": 39.99,\n  \"stock\": 20,\n  \"visible\": false,\n  \"rating\": 4.7\n}"
+          "raw": "{\n  \"price\": 49.99,\n  \"stock\": 30,\n  \"visible\": true,\n  \"rating\": 4.7\n}"
         },
-        "url": "{{baseUrl}}/1"
+        "url": "{{baseUrl}}/15"
       }
     },
     {
       "name": "DELETE - Book",
       "request": {
         "method": "DELETE",
-        "header": [],
-        "url": "{{baseUrl}}/1"
+        "url": "{{baseUrl}}/20"
       }
     },
     {
-      "name": "GET - Not Found Test",
+      "name": "GET - Not Found",
       "request": {
         "method": "GET",
-        "header": [],
+        "url": "{{baseUrl}}/99999"
+      }
+    },
+    {
+      "name": "DELETE - Not Found",
+      "request": {
+        "method": "DELETE",
         "url": "{{baseUrl}}/99999"
       }
     }

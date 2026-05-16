@@ -27,7 +27,7 @@ public class BookController {
     private final BookService bookService;
 
     /**
-     * Obtiene todos los libros del catálogo.
+     * Obtiene el listado completo de libros registrados.
      */
     @Operation(
             summary = "Obtener todos los libros",
@@ -39,28 +39,28 @@ public class BookController {
     }
 
     /**
-     * Realiza búsqueda dinámica aplicando filtros opcionales.
+     * Realiza una búsqueda dinámica utilizando filtros opcionales.
      */
     @Operation(
             summary = "Buscar libros con filtros",
-            description = "Permite consultar libros aplicando filtros dinámicos"
+            description = "Permite consultar libros aplicando criterios dinámicos de búsqueda"
     )
     @GetMapping("/search")
     public List<BookResponse> searchBooks(
-            @RequestParam(required = false) String title,
-            @RequestParam(required = false) String author,
-            @RequestParam(required = false) String isbn,
-            @RequestParam(required = false) String category,
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "author", required = false) String author,
+            @RequestParam(value = "isbn", required = false) String isbn,
+            @RequestParam(value = "category", required = false) String category,
 
-            @RequestParam(required = false)
+            @RequestParam(value = "publicationDate", required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             LocalDate publicationDate,
 
-            @RequestParam(required = false) BigDecimal rating,
-            @RequestParam(required = false) Boolean visible,
-            @RequestParam(required = false) String format,
-            @RequestParam(required = false) BigDecimal maxPrice,
-            @RequestParam(required = false) Integer minStock
+            @RequestParam(value = "rating", required = false) BigDecimal rating,
+            @RequestParam(value = "visible", required = false) Boolean visible,
+            @RequestParam(value = "format", required = false) String format,
+            @RequestParam(value = "maxPrice", required = false) BigDecimal maxPrice,
+            @RequestParam(value = "minStock", required = false) Integer minStock
     ) {
         return bookService.searchBooks(
                 title,
@@ -77,34 +77,34 @@ public class BookController {
     }
 
     /**
-     * Obtiene libros paginados.
+     * Retorna libros utilizando parámetros de paginación.
      */
     @Operation(
             summary = "Obtener libros paginados",
-            description = "Retorna libros utilizando parámetros de paginación"
+            description = "Retorna libros utilizando parámetros page y size"
     )
     @GetMapping("/paged")
     public List<BookResponse> getBooksPaginated(
-            @RequestParam Integer page,
-            @RequestParam Integer size
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "size") Integer size
     ) {
         return bookService.getBooksPaginated(size, page);
     }
 
     /**
-     * Obtiene un libro por su identificador.
+     * Consulta un libro específico por identificador.
      */
     @Operation(
             summary = "Obtener libro por identificador",
             description = "Retorna un libro específico según su identificador"
     )
     @GetMapping("/{id}")
-    public BookResponse getBookById(@PathVariable Long id) {
+    public BookResponse getBookById(@PathVariable("id") Long id) {
         return bookService.getBookById(id);
     }
 
     /**
-     * Crea un nuevo libro en el catálogo.
+     * Registra un nuevo libro en el catálogo.
      */
     @Operation(
             summary = "Crear libro",
@@ -119,7 +119,7 @@ public class BookController {
     }
 
     /**
-     * Actualiza completamente un libro existente.
+     * Actualiza completamente la información de un libro existente.
      */
     @Operation(
             summary = "Actualizar libro",
@@ -127,37 +127,37 @@ public class BookController {
     )
     @PutMapping("/{id}")
     public BookResponse updateBook(
-            @PathVariable Long id,
+            @PathVariable("id") Long id,
             @RequestBody BookRequest request
     ) {
         return bookService.updateBook(id, request);
     }
 
     /**
-     * Actualiza parcialmente un libro existente.
+     * Actualiza parcialmente atributos permitidos del libro.
      */
     @Operation(
             summary = "Actualizar parcialmente un libro",
-            description = "Modifica atributos específicos sin reemplazar el recurso completo"
+            description = "Modifica atributos específicos sin reemplazar completamente el recurso"
     )
     @PatchMapping("/{id}")
     public BookResponse patchBook(
-            @PathVariable Long id,
+            @PathVariable("id") Long id,
             @RequestBody PatchBookRequest request
     ) {
         return bookService.patchBook(id, request);
     }
 
     /**
-     * Elimina un libro del catálogo.
+     * Elimina un libro utilizando su identificador.
      */
     @Operation(
             summary = "Eliminar libro",
-            description = "Elimina un libro utilizando su identificador"
+            description = "Elimina un libro del catálogo según su identificador"
     )
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBook(@PathVariable Long id) {
+    public void deleteBook(@PathVariable("id") Long id) {
         bookService.deleteBook(id);
     }
 }
